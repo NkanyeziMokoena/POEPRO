@@ -1,11 +1,8 @@
 /* RaceDay database - Part 1, Section C
    SQL Server / SSMS. Passwords are never seeded or stored in plaintext.
    Authentication is implemented in the API; seeded accounts use placeholder hashes. */
-IF DB_ID(N'RaceDayDb') IS NULL
-    CREATE DATABASE RaceDayDb;
-GO
+    CREATE DATABASE RaceDayDbb;
 USE RaceDayDb;
-GO
 
 DROP TABLE IF EXISTS dbo.AuditLogs;
 DROP TABLE IF EXISTS dbo.Results;
@@ -13,7 +10,6 @@ DROP TABLE IF EXISTS dbo.Enrolments;
 DROP TABLE IF EXISTS dbo.Categories;
 DROP TABLE IF EXISTS dbo.Events;
 DROP TABLE IF EXISTS dbo.Users;
-GO
 
 CREATE TABLE dbo.Users (
     UserId INT IDENTITY(1,1) NOT NULL CONSTRAINT PK_Users PRIMARY KEY,
@@ -82,7 +78,6 @@ CREATE TABLE dbo.Results (
     CONSTRAINT FK_Results_Enrolments FOREIGN KEY (EnrolmentId) REFERENCES dbo.Enrolments(EnrolmentId),
     CONSTRAINT CK_Results_Position CHECK (FinishPosition > 0)
 );
-GO
 
 /* Sample users use non-working placeholder hashes; create real users through API registration. */
 INSERT INTO dbo.Users (FirstName, LastName, Email, PasswordHash, Role) VALUES
@@ -106,9 +101,8 @@ INSERT INTO dbo.Enrolments (ParticipantId, EventId, CategoryId) VALUES
 
 INSERT INTO dbo.Results (EnrolmentId, FinishTime, FinishPosition) VALUES
 (1,'00:52:31.000',12),(2,'00:47:12.000',8);
-GO
 
-GO
+
 
 /* Verification SELECT statements — run after the inserts above. */
 SELECT UserId, FirstName, LastName, Email, Role, CreatedAt FROM dbo.Users ORDER BY UserId;
@@ -128,4 +122,4 @@ INNER JOIN dbo.Events AS ev ON ev.EventId = en.EventId
 INNER JOIN dbo.Categories AS cat ON cat.CategoryId = en.CategoryId
 LEFT JOIN dbo.Results AS res ON res.EnrolmentId = en.EnrolmentId
 ORDER BY ev.EventDate, res.FinishPosition;
-GO
+
