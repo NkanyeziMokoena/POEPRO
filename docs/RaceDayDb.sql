@@ -1,7 +1,7 @@
 /* RaceDay database - Part 1, Section C
    SQL Server / SSMS. Passwords are never seeded or stored in plaintext.
    Authentication is implemented in the API; seeded accounts use placeholder hashes. */
-    CREATE DATABASE RaceDayDbb;
+    CREATE DATABASE RaceDaybbd;
 USE RaceDayDb;
 
 DROP TABLE IF EXISTS dbo.AuditLogs;
